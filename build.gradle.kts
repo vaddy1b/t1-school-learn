@@ -1,6 +1,5 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -20,7 +19,7 @@ repositories {
 dependencies {
     // Spring Core
     implementation("org.springframework:spring-context:5.3.20")
-    implementation("org.springframework:spring-web:5.3.20")
+    implementation("org.springframework:spring-core:5.3.20")
     implementation("org.springframework:spring-jdbc:5.3.20")
 
     // AOP
