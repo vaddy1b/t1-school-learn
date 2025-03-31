@@ -15,7 +15,6 @@ public class T1SchoolLearnApplication {
 
         TaskRepository taskRepository = applicationContext.getBean(TaskRepository.class);
 
-        // Тестируем работу с базой данных
         System.out.println("Все задачи в базе:");
         taskRepository.findAll().forEach(System.out::println);
 

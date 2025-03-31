@@ -35,7 +35,6 @@ public class MainAspect {
         logger.info("AfterReturning advice: Успешное выполнение GET запроса. Результат: {}", result);
     }
 
-    // Around advice - замер времени выполнения методов репозитория
     @Around("(execution(* ru.babich.t1schoollearn.repo.TaskRepository.*(..)))")
     public Object logAroundRepositoryMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
