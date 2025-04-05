@@ -1,54 +1,50 @@
 package ru.babich.t1schoollearn.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import ru.babich.t1schoollearn.annottaion.ExceptionTrace;
+import ru.babich.t1schoollearn.mapper.TaskMapper;
 import ru.babich.t1schoollearn.model.Task;
+import ru.babich.t1schoollearn.model.TaskDTO;
 import ru.babich.t1schoollearn.repo.TaskRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    private final TaskMapper taskMapper;
+
+    public List<TaskDTO> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(taskMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public Optional<TaskDTO> getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .map(taskMapper::toDto);
     }
 
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.findById(id);
+    public TaskDTO createTask(TaskDTO taskDto) {
+        var task = taskMapper.toEntity(taskDto);
+        var savedTask = taskRepository.save(task);
+        return taskMapper.toDto(savedTask);
     }
 
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
-    }
-
-    public Task updateTask(Long id, Task taskDetails) {
-        try {
-            Task task = taskRepository.findById(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + id));
-            task.setTitle(taskDetails.getTitle());
-            task.setDescription(taskDetails.getDescription());
-            task.setUserId(taskDetails.getUserId());
-            return taskRepository.save(task);
-        } catch (NoSuchElementException ex) {
-            ex.getMessage();
-        }
-        return null;
+    @ExceptionTrace
+    public TaskDTO updateTask(TaskDTO taskDto) {
+        Task task = taskMapper.toEntity(taskDto);
+        var updatedTask = taskRepository.save(task);
+        return taskMapper.toDto(updatedTask);
     }
 
     public void deleteTask(Long id) {
-        try {
-            taskRepository.deleteById(id);
-        } catch (NoSuchElementException ex) {
-            ex.getMessage();
-        }
+        taskRepository.deleteById(id);
     }
 }

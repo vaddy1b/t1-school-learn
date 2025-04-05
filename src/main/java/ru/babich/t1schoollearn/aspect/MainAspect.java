@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.babich.t1schoollearn.T1SchoolLearnApplication;
+import ru.babich.t1schoollearn.annottaion.ExceptionTrace;
 
 
 @Aspect
@@ -14,7 +15,7 @@ public class MainAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(T1SchoolLearnApplication.class);
 
-    @Before("execution(* ru.babich.t1schoollearn.controller.AppController.*(..))")
+    @Before("execution(* ru.babich.t1schoollearn.controller.AppController.getAllTasks())")
     public void logBeforeMethodCall() {
         logger.info("Before advice: Вызов метода контроллера");
     }
@@ -27,8 +28,23 @@ public class MainAspect {
         logger.error("AfterThrowing advice: Ошибка в репозитории - {}", e.getMessage());
     }
 
+    @Around("@annotation(ru.babich.t1schoollearn.annottaion.ExceptionTrace)")
+    public Object logExceptionTrace(ProceedingJoinPoint joinPoint) throws Throwable {
+        String methodName = joinPoint.getSignature().getName();
+        logger.info("ExceptionTrace advice: Начало выполнения метода {}", methodName);
+
+        try {
+            Object result = joinPoint.proceed();
+            logger.info("ExceptionTrace advice: Метод {} выполнен успешно", methodName);
+            return result;
+        } catch (Exception ex) {
+            logger.error("ExceptionTrace advice: Ошибка в методе {} - {}", methodName, ex.getMessage());
+            throw ex;
+        }
+    }
+
     @AfterReturning(
-            pointcut = "(execution(* ru.babich.t1schoollearn.controller.AppController.*(..)))",
+            pointcut = "(execution(* ru.babich.t1schoollearn.controller.AppController.getTaskById()))",
             returning = "result"
     )
     public void logAfterReturning(Object result) {

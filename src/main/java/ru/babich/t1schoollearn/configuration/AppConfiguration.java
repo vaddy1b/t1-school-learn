@@ -1,5 +1,6 @@
 package ru.babich.t1schoollearn.configuration;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -12,7 +13,6 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableAspectJAutoProxy
 public class AppConfiguration {
 
     @Bean
@@ -43,5 +43,16 @@ public class AppConfiguration {
         initializer.setDatabasePopulator(populator);
         initializer.setEnabled(true);
         return initializer;
+    }
+
+    @Bean
+    public CommandLineRunner commandLineRunnerBean(){
+        return (args) -> {
+            System.out.println("In CommandLineRunnerImpl ");
+
+            for (String arg : args) {
+                System.out.println(arg);
+            }
+        };
     }
 }

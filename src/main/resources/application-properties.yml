@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: t1-school-learn
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  sql:
+    init:
+      mode: always

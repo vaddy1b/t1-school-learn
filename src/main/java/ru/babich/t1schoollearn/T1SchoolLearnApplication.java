@@ -1,32 +1,31 @@
 package ru.babich.t1schoollearn;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ContextAnnotationAutowireCandidateResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ru.babich.t1schoollearn.model.Task;
+import ru.babich.t1schoollearn.model.TaskDTO;
 import ru.babich.t1schoollearn.repo.TaskRepository;
+import ru.babich.t1schoollearn.service.TaskService;
 
-@ComponentScan
+import java.util.List;
+
+@SpringBootApplication
 public class T1SchoolLearnApplication {
 
     public static void main(String[] args) {
 
-        AnnotationConfigApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext(T1SchoolLearnApplication.class);
+       ApplicationContext context = SpringApplication.run(T1SchoolLearnApplication.class,args);
+        TaskService service = context.getBean(TaskService.class);
+        service.getAllTasks();
 
-        TaskRepository taskRepository = applicationContext.getBean(TaskRepository.class);
-
-        System.out.println("Все задачи в базе:");
-        taskRepository.findAll().forEach(System.out::println);
-
-        Task newTask = new Task();
-        newTask.setTitle("Новая задача из main");
-        newTask.setDescription("Создана в основном классе");
-        newTask.setUserId(3L);
-        taskRepository.save(newTask);
-
-        taskRepository.findAll().forEach(System.out::println);
-
-        applicationContext.close();
+//        запустить чтобы посмотреть как отрабатывает exception trace annotation advice
+//        service.updateTask(new TaskDTO(2l,"title","231",2l));
     }
 
 }

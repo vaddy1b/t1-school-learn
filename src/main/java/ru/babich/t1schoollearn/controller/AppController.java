@@ -1,52 +1,53 @@
 package ru.babich.t1schoollearn.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.babich.t1schoollearn.model.Task;
-import ru.babich.t1schoollearn.repo.TaskRepository;
+import ru.babich.t1schoollearn.exception.ResourceNotFoundException;
+import ru.babich.t1schoollearn.model.TaskDTO;
+import ru.babich.t1schoollearn.service.TaskService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/tasks")
 public class AppController {
 
-    private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
-    public AppController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public AppController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskDTO> getAllTasks() {
+        return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
-        return taskRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @ResponseStatus(HttpStatus.OK)
+    public TaskDTO getTaskById(@PathVariable Long id) throws ResourceNotFoundException {
+        return taskService.getTaskById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task savedTask = taskRepository.save(task);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
+    @ResponseStatus(HttpStatus.CREATED)
+    public TaskDTO createTask(@RequestBody TaskDTO taskDto) {
+        return taskService.createTask(taskDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        task.setId(id);
-        Task updatedTask = taskRepository.save(task);
-        return ResponseEntity.ok(updatedTask);
+    @ResponseStatus(HttpStatus.OK)
+    public TaskDTO updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDto) {
+        taskDto.setId(id);
+        return taskService.updateTask(taskDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-        taskRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
     }
+
 }

@@ -1,5 +1,7 @@
 package ru.babich.t1schoollearn.repo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -9,56 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TaskRepository {
-    private final JdbcTemplate jdbcTemplate;
+public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    private final RowMapper<Task> taskRowMapper = (rs, rowNum) -> new Task(
-            rs.getLong("id"),
-            rs.getString("title"),
-            rs.getString("description"),
-            rs.getLong("user_id")
-    );
+    Task save(Task task);
+    @Override
+    List<Task> findAll();
 
-    public TaskRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Override
+    Optional<Task> findById(Long id);
 
-    public List<Task> findAll() {
-        return jdbcTemplate.query("SELECT * FROM tasks", taskRowMapper);
-    }
+    @Override
+    void deleteById(Long id);
 
-    public Optional<Task> findById(Long id) {
-        return jdbcTemplate.query("SELECT * FROM tasks WHERE id = ?",
-                taskRowMapper, id).stream().findFirst();
-    }
-
-    public Task save(Task task) {
-        if (task.getId() == null) {
-            return insert(task);
-        } else {
-            return update(task);
-        }
-    }
-
-    private Task insert(Task task) {
-        Long id = jdbcTemplate.queryForObject(
-                "INSERT INTO tasks (title, description, user_id) VALUES (?, ?, ?) RETURNING id",
-                Long.class,
-                task.getTitle(), task.getDescription(), task.getUserId()
-        );
-        task.setId(id);
-        return task;
-    }
-
-    private Task update(Task task) {
-        jdbcTemplate.update(
-                "UPDATE tasks SET title = ?, description = ?, user_id = ? WHERE id = ?",
-                task.getTitle(), task.getDescription(), task.getUserId(), task.getId());
-
-        return task;
-    }
-
-    public void deleteById(Long id) {
-        jdbcTemplate.update("DELETE FROM tasks WHERE id = ?", id);
-    }
+    @Override
+    boolean existsById(Long id);
 }
