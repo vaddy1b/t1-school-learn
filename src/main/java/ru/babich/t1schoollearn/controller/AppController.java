@@ -19,13 +19,11 @@ public class AppController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<TaskDTO> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public TaskDTO getTaskById(@PathVariable Long id) throws ResourceNotFoundException {
         return taskService.getTaskById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
@@ -38,7 +36,6 @@ public class AppController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public TaskDTO updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDto) {
         taskDto.setId(id);
         return taskService.updateTask(taskDto);

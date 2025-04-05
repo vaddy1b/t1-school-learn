@@ -19,13 +19,7 @@ import java.util.List;
 public class T1SchoolLearnApplication {
 
     public static void main(String[] args) {
-
-       ApplicationContext context = SpringApplication.run(T1SchoolLearnApplication.class,args);
-        TaskService service = context.getBean(TaskService.class);
-        service.getAllTasks();
-
-//        запустить чтобы посмотреть как отрабатывает exception trace annotation advice
-//        service.updateTask(new TaskDTO(2l,"title","231",2l));
+        SpringApplication.run(T1SchoolLearnApplication.class,args);
     }
 
 }

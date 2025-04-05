@@ -15,13 +15,13 @@ public class MainAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(T1SchoolLearnApplication.class);
 
-    @Before("execution(* ru.babich.t1schoollearn.controller.AppController.getAllTasks())")
+    @Before("execution(* ru.babich.t1schoollearn.controller.AppController.getTaskById())")
     public void logBeforeMethodCall() {
         logger.info("Before advice: Вызов метода контроллера");
     }
 
     @AfterThrowing(
-            pointcut = "(execution(* ru.babich.t1schoollearn.repo.TaskRepository.*(..)))",
+            pointcut = "(execution(* ru.babich.t1schoollearn.repo.TaskRepository.existsById()))",
             throwing = "e"
     )
     public void logAfterThrowing(Exception e) {

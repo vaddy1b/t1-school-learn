@@ -45,14 +45,4 @@ public class AppConfiguration {
         return initializer;
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunnerBean(){
-        return (args) -> {
-            System.out.println("In CommandLineRunnerImpl ");
-
-            for (String arg : args) {
-                System.out.println(arg);
-            }
-        };
-    }
 }

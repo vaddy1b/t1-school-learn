@@ -1,5 +1,6 @@
 package ru.babich.t1schoollearn.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.babich.t1schoollearn.annottaion.ExceptionTrace;
@@ -26,9 +27,15 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
+
     public Optional<TaskDTO> getTaskById(Long id) {
-        return taskRepository.findById(id)
-                .map(taskMapper::toDto);
+        Optional<Task> taskOptional = taskRepository.findById(id);
+
+        if (taskOptional.isEmpty()) {
+            System.out.println("Task with id " + id + " not found");
+        }
+
+        return taskOptional.map(taskMapper::toDto);
     }
 
     public TaskDTO createTask(TaskDTO taskDto) {
