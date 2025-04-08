@@ -1,9 +1,10 @@
 package ru.babich.t1schoollearn.exception;
 
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-public class ResourceNotFoundException extends ChangeSetPersister.NotFoundException {
+public class ResourceNotFoundException extends NoResourceFoundException {
     public ResourceNotFoundException(String s) {
-        System.out.println(s);
+        super(HttpMethod.GET,s);
     }
 }

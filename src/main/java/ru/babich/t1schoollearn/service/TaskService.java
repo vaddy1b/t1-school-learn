@@ -1,9 +1,11 @@
 package ru.babich.t1schoollearn.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.babich.t1schoollearn.annottaion.ExceptionTrace;
+import ru.babich.t1schoollearn.T1SchoolLearnApplication;
+import ru.babich.t1schoollearn.annottaion.TrackTrace;
 import ru.babich.t1schoollearn.mapper.TaskMapper;
 import ru.babich.t1schoollearn.model.Task;
 import ru.babich.t1schoollearn.model.TaskDTO;
@@ -21,6 +23,8 @@ public class TaskService {
 
     private final TaskMapper taskMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(T1SchoolLearnApplication.class);
+
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll().stream()
                 .map(taskMapper::toDto)
@@ -29,13 +33,12 @@ public class TaskService {
 
 
     public Optional<TaskDTO> getTaskById(Long id) {
-        Optional<Task> taskOptional = taskRepository.findById(id);
-
-        if (taskOptional.isEmpty()) {
-            System.out.println("Task with id " + id + " not found");
-        }
-
-        return taskOptional.map(taskMapper::toDto);
+        return Optional.ofNullable(taskRepository.findById(id)
+                .map(taskMapper::toDto)
+                .orElseThrow(() -> {
+                    logger.warn("No task found with id: {}", id);
+                    return new NullPointerException("Task not found with id: " + id);
+                }));
     }
 
     public TaskDTO createTask(TaskDTO taskDto) {
@@ -44,8 +47,9 @@ public class TaskService {
         return taskMapper.toDto(savedTask);
     }
 
-    @ExceptionTrace
+    @TrackTrace
     public TaskDTO updateTask(TaskDTO taskDto) {
+
         Task task = taskMapper.toEntity(taskDto);
         var updatedTask = taskRepository.save(task);
         return taskMapper.toDto(updatedTask);

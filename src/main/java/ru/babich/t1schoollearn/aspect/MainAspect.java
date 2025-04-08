@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.babich.t1schoollearn.T1SchoolLearnApplication;
-import ru.babich.t1schoollearn.annottaion.ExceptionTrace;
 
 
 @Aspect
@@ -21,24 +20,24 @@ public class MainAspect {
     }
 
     @AfterThrowing(
-            pointcut = "(execution(* ru.babich.t1schoollearn.repo.TaskRepository.existsById()))",
+            pointcut = "(execution(* ru.babich.t1schoollearn.repo.TaskRepository.*(..)))",
             throwing = "e"
     )
     public void logAfterThrowing(Exception e) {
         logger.error("AfterThrowing advice: Ошибка в репозитории - {}", e.getMessage());
     }
 
-    @Around("@annotation(ru.babich.t1schoollearn.annottaion.ExceptionTrace)")
+    @Around("@annotation(ru.babich.t1schoollearn.annottaion.TrackTrace)")
     public Object logExceptionTrace(ProceedingJoinPoint joinPoint) throws Throwable {
         String methodName = joinPoint.getSignature().getName();
-        logger.info("ExceptionTrace advice: Начало выполнения метода {}", methodName);
+        logger.info("TrackTrace advice: Начало выполнения метода {}", methodName);
 
         try {
             Object result = joinPoint.proceed();
-            logger.info("ExceptionTrace advice: Метод {} выполнен успешно", methodName);
+            logger.info("TrackTrace advice: Метод {} выполнен успешно", methodName);
             return result;
         } catch (Exception ex) {
-            logger.error("ExceptionTrace advice: Ошибка в методе {} - {}", methodName, ex.getMessage());
+            logger.error("TrackTrace advice: Ошибка в методе {} - {}", methodName, ex.getMessage());
             throw ex;
         }
     }
@@ -48,13 +47,13 @@ public class MainAspect {
             returning = "result"
     )
     public void logAfterReturning(Object result) {
-        logger.info("AfterReturning advice: Успешное выполнение GET запроса. Результат: {}", result);
+        logger.info("AfterReturning advice: Успешное выполнение запроса по поиску taskById. Результат: {}", result);
     }
 
     @Around("(execution(* ru.babich.t1schoollearn.repo.TaskRepository.*(..)))")
     public Object logAroundRepositoryMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
-        logger.info("Around advice (начало): Вызов метода репозитория {}", joinPoint.getSignature().getName());
+        logger.info("Around advice замера времени (начало): Вызов метода репозитория {}", joinPoint.getSignature().getName());
 
         try {
             Object result = joinPoint.proceed();

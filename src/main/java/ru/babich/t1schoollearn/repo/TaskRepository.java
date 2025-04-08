@@ -1,9 +1,6 @@
 package ru.babich.t1schoollearn.repo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.babich.t1schoollearn.model.Task;
 
@@ -25,6 +22,4 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Override
     boolean existsById(Long id);
-
-
 }
