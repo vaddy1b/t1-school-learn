@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class TaskDTO {
@@ -14,4 +13,5 @@ public class TaskDTO {
     private String title;
     private String description;
     private Long userId;
+    private String status;
 }

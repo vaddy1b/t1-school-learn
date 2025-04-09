@@ -1,12 +1,37 @@
 spring:
   application:
     name: t1-school-learn
+
   jpa:
     hibernate:
       ddl-auto: create-drop
+
   sql:
     init:
       mode: always
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: task-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: xray-zone@yandex.ru
+    password: pass
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/taskdb

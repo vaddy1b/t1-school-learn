@@ -37,6 +37,11 @@ public class AppController {
 
     @PutMapping("/{id}")
     public TaskDTO updateTask(@PathVariable Long id, @RequestBody TaskDTO taskDto) {
+
+        if (!id.equals(taskDto.getId())) {
+            throw new IllegalArgumentException("ID in path and body must match");
+        }
+
         taskDto.setId(id);
         return taskService.updateTask(taskDto);
     }

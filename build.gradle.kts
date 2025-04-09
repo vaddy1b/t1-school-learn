@@ -22,9 +22,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
 
     // PostgreSQL
     implementation("org.postgresql:postgresql:42.3.3")
+
+    // Kafka
+    implementation("org.springframework.kafka:spring-kafka")
 
     //Mapping
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
