@@ -2,7 +2,6 @@ package ru.babich.t1schoollearn.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -17,6 +16,9 @@ public class Task {
     private String title;
     private String description;
     private Long userId;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private String status;
 
     public Long getId() {
