@@ -27,7 +27,7 @@ public class NotificationService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(fromEmail);
             message.setTo(toEmail);
-            message.setSubject(subjectPrefix);
+            message.setSubject(subjectPrefix + taskId);
             message.setText(String.format(
                     "The status of task #%d has been changed to: %s",
                     taskId, newStatus

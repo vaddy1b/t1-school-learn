@@ -47,7 +47,8 @@ spring:
     email:
       from: xray-zone@yandex.ru
       to: eagle-vadim@mail.ru
-      subject-prefix: Task Status Update - Task №
+      subject-prefix: "Task Status Update"
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/taskdb

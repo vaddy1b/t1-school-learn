@@ -2,6 +2,7 @@ package ru.babich.t1schoollearn.kafka.producer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class TaskProducer {
-    private static final String topic = "task-updates";
+    @Value("${spring.kafka.topics.task-updates}")
+    private String topic;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 

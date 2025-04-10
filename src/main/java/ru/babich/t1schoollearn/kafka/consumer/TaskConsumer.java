@@ -12,7 +12,7 @@ import ru.babich.t1schoollearn.kafka.NotificationService;
 public class TaskConsumer {
     private final NotificationService notificationService;
 
-    @KafkaListener(topics = "${kafka.topics.task-updates}", groupId = "${kafka.topi}")
+    @KafkaListener(topics = "${spring.kafka.topics.task-updates}", groupId = "${spring.kafka.consumer.group-id}")
     public void listenTaskUpdates(String message) {
         try {
             String[] parts = message.split(":");
