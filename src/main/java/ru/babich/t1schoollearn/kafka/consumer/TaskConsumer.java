@@ -1,29 +1,28 @@
 package ru.babich.t1schoollearn.kafka.consumer;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import ru.babich.t1schoollearn.service.NotificationService;
+import ru.babich.t1schoollearn.kafka.NotificationService;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TaskConsumer {
     private final NotificationService notificationService;
-    private static final Logger logger = LoggerFactory.getLogger(TaskConsumer.class);
 
-    @KafkaListener(topics = "task-updates", groupId = "task-group")
+    @KafkaListener(topics = "${kafka.topics.task-updates}", groupId = "${kafka.topi}")
     public void listenTaskUpdates(String message) {
         try {
             String[] parts = message.split(":");
             Long taskId = Long.parseLong(parts[0]);
             String newStatus = parts[1];
 
-            logger.info("Received task update from Kafka: TaskID={}, Status={}", taskId, newStatus);
+            log.info("Received task update from Kafka: TaskID={}, Status={}", taskId, newStatus);
             notificationService.sendStatusChangeNotification(taskId, newStatus);
         } catch (Exception e) {
-            logger.error("Error processing Kafka message: {}", message, e);
+            log.error("Error processing Kafka message: {}", message, e);
         }
     }
 }

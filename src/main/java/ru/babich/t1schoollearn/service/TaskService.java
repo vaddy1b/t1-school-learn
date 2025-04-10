@@ -2,9 +2,7 @@ package ru.babich.t1schoollearn.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.producer.Producer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.babich.t1schoollearn.annottaion.TrackTrace;
@@ -21,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TaskService {
 
     private final TaskRepository taskRepository;
@@ -28,8 +27,6 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     private final TaskProducer producer;
-
-    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
     public List<TaskDTO> getAllTasks() {
         return taskRepository.findAll().stream()
@@ -42,7 +39,7 @@ public class TaskService {
         return Optional.ofNullable(taskRepository.findById(id)
                 .map(taskMapper::toDto)
                 .orElseThrow(() -> {
-                    logger.warn("No task found with id: {}", id);
+                    log.warn("No task found with id: {}", id);
                     return new TaskNotFoundException("No such task found with id: { " + id + "}");
                 }));
     }
@@ -74,7 +71,7 @@ public class TaskService {
             try {
                 producer.sendTaskUpdate(task.getId(), taskDto.getStatus());
             } catch (Exception e) {
-                logger.error("Failed to send task update to Kafka", e);
+                log.error("Failed to send task update to Kafka", e);
             }
         }
 
