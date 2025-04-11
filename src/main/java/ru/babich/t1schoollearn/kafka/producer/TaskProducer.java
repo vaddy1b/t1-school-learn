@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class TaskProducer {
-    @Value("${spring.kafka.topics.task-updates}")
+    @Value("${spring.kafka.topics.task-updated}")
     private String topic;
 
     private final KafkaTemplate<String, String> kafkaTemplate;

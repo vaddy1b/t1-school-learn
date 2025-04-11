@@ -29,7 +29,8 @@ spring:
       poll-timeout: 5000
       idle-between-polls: 300000
     topics:
-      task-updates: task-updates
+      task-new: registered_new_task
+      task-updated: task-updates
 
   mail:
     host: smtp.yandex.ru
