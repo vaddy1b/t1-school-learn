@@ -539,3 +539,58 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'no
 2025-04-12 10:38:43 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
 2025-04-12 10:38:48 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
 2025-04-12 10:38:48 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:38:53 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:38:53 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:38:58 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:38:58 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:03 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:03 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:08 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:08 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:13 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:13 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - Received: 0 records
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-2, groupId=task-group] Member consumer-task-group-2-e8568c90-1e98-4d75-80ea-3a8834daa506 sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-3, groupId=task-group] Member consumer-task-group-3-eeaf778b-d071-496a-b5c2-6764c62dd86e sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-2, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-3, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-2, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-3, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-task-group-2, groupId=task-group] Unsubscribed all topics or patterns and assigned partitions
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-task-group-3, groupId=task-group] Unsubscribed all topics or patterns and assigned partitions
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-2, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-3, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-2, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-3, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerRebalanceListenerInvoker - [Consumer clientId=consumer-task-group-1, groupId=task-group] Revoke previously assigned partitions task-updates-0
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - task-group: partitions revoked: [task-updates-0]
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-1, groupId=task-group] Member consumer-task-group-1-6070655d-a3fc-4906-8c43-820fac7ddda3 sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-1, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-1, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.LegacyKafkaConsumer - [Consumer clientId=consumer-task-group-1, groupId=task-group] Unsubscribed all topics or patterns and assigned partitions
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-1, groupId=task-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-task-group-1, groupId=task-group] Request joining group due to: consumer pro-actively leaving the group
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-task-group-3 unregistered
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-task-group-2 unregistered
+2025-04-12 10:39:17 [task-group-2-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - task-group: Consumer stopped
+2025-04-12 10:39:17 [task-group-1-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - task-group: Consumer stopped
+2025-04-12 10:39:17 [task-group-2-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - KafkaMessageListenerContainer [id=task-group-2, clientIndex=-2, topicPartitions=[]] stopped normally
+2025-04-12 10:39:17 [task-group-1-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - KafkaMessageListenerContainer [id=task-group-1, clientIndex=-1, topicPartitions=[]] stopped normally
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics scheduler closed
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.kafka.common.metrics.Metrics - Metrics reporters closed
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.a.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-task-group-1 unregistered
+2025-04-12 10:39:17 [task-group-0-C-1] INFO  o.s.k.l.KafkaMessageListenerContainer - task-group: Consumer stopped
+2025-04-12 10:39:17 [task-group-0-C-1] DEBUG o.s.k.l.KafkaMessageListenerContainer - KafkaMessageListenerContainer [id=task-group-0, clientIndex=-0, topicPartitions=[]] stopped normally
+2025-04-12 10:39:17 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-12 10:39:17 [SpringApplicationShutdownHook] DEBUG org.hibernate.SQL - drop table if exists tasks cascade
+2025-04-12 10:39:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-04-12 10:39:17 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
