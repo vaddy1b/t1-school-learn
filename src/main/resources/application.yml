@@ -1,0 +1,78 @@
+---
+spring:
+  application:
+    name: t1-school-learn
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: task-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 500
+      fetch-min-size: 1
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    listener:
+      type: single
+      ack-mode: manual_immediate
+      concurrency: 3
+      poll-timeout: 5000
+      idle-between-polls: 300000
+    topics:
+      task-new: registered_new_task
+      task-updated: task-updates
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: xray-zone@yandex.ru
+    password: pass
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          ssl.trust: smtp.yandex.ru
+  notification:
+    email:
+      from: xray-zone@yandex.ru
+      to: eagle-vadim@mail.ru
+      subject-prefix: Task Status Update
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  sql:
+    init:
+      mode: always
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/taskdb
+    username: postgres
+    password: pass
+    initialization:
+      mode: always
+      continue-on-error: false
+      platform: postgresql
+      data: classpath:data.sql
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.kafka: DEBUG
+    org.springframework.mail: DEBUG
+    ru.babich.t1schoollearn: DEBUG
+    ru.babich.t1schoollearn.kafka.consumer: TRACE
+    org.springframework.jdbc: DEBUG
+    org.springframework.boot.autoconfigure.jdbc: DEBUG
+  file:
+    name: logs/app.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %highlight(%-5level)
+      %cyan(%logger{36}) - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      total-size-cap: 100MB
