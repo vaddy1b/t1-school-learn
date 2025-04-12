@@ -1,15 +1,7 @@
+---
 spring:
   application:
     name: t1-school-learn
-
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-
-  sql:
-    init:
-      mode: always
-
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -31,7 +23,6 @@ spring:
     topics:
       task-new: registered_new_task
       task-updated: task-updates
-
   mail:
     host: smtp.yandex.ru
     port: 587
@@ -43,13 +34,17 @@ spring:
           auth: true
           starttls.enable: true
           ssl.trust: smtp.yandex.ru
-
   notification:
     email:
       from: xray-zone@yandex.ru
       to: eagle-vadim@mail.ru
-      subject-prefix: "Task Status Update"
-
+      subject-prefix: Task Status Update
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  sql:
+    init:
+      mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/taskdb
@@ -60,7 +55,6 @@ spring:
       continue-on-error: false
       platform: postgresql
       data: classpath:data.sql
-
 logging:
   level:
     root: INFO
@@ -70,6 +64,8 @@ logging:
     org.springframework.mail: DEBUG
     ru.babich.t1schoollearn: DEBUG
     ru.babich.t1schoollearn.kafka.consumer: TRACE
+    org.springframework.jdbc: DEBUG
+    org.springframework.boot.autoconfigure.jdbc: DEBUG
   file:
     name: logs/app.log
   pattern:

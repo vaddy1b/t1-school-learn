@@ -26,6 +26,7 @@ dependencies {
 
     // PostgreSQL
     implementation("org.postgresql:postgresql:42.3.3")
+    runtimeOnly("org.postgresql:postgresql:42.3.3")
 
     // Kafka
     implementation("org.springframework.kafka:spring-kafka")

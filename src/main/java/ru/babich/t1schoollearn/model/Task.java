@@ -16,9 +16,7 @@ public class Task {
     private String title;
     private String description;
     private Long userId;
-
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private String status;
 
     public Long getId() {

@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
     private final JavaMailSender mailSender;
 
-    @Value("${notification.email.from}")
+    @Value("${spring.notification.email.from}")
     private String fromEmail;
 
-    @Value("${notification.email.to}")
+    @Value("${spring.notification.email.to}")
     private String toEmail;
 
-    @Value("${notification.email.subject-prefix}")
+    @Value("${spring.notification.email.subject-prefix}")
     private String subjectPrefix;
 
     public void sendStatusChangeNotification(Long taskId, String newStatus) {
