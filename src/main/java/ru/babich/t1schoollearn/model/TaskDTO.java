@@ -3,13 +3,12 @@ package ru.babich.t1schoollearn.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class TaskDTO {
     private Long id;
 
